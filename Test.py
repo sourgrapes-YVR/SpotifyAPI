@@ -9,8 +9,8 @@ API_return_codes = {204: "Success!", 401: "Token Problem", 403: "Bad OAuth Reque
 allowed_inputs = "play", "pause", "see", "next", "previous"
 scope = "user-read-playback-state,user-read-currently-playing,user-modify-playback-state"
 
-os.environ["SPOTIPY_CLIENT_ID"] = "9e31ba09c77c4351884da2e51f35d7ca"
-os.environ["SPOTIPY_CLIENT_SECRET"] = "e7259bb4be87456c860223a5afcfe8e2"
+os.environ["SPOTIPY_CLIENT_ID"] = "XXXXXXXXX"
+os.environ["SPOTIPY_CLIENT_SECRET"] = "XXXXXXXXXXX"
 os.environ["SPOTIPY_REDIRECT_URI"] = "http://127.0.0.1:9090"
 
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
