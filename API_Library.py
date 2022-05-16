@@ -48,7 +48,7 @@ def get_album_art():
     play_status_string = sp.current_playback()
     album_art_url = (play_status_string['item']['album']['images'])[2]['url']
     img_jpg = Image.open(requests.get(album_art_url,stream=True).raw)
-    img_jpg.save("/Users/davidbrown/PycharmProject/APITutorial/album_arts/newart.png")
+    img_jpg.save("/home/dbrown/Documents/newart.png")
     return img_jpg
 
 def play_pause():
@@ -57,12 +57,17 @@ def play_pause():
         # print("paused")
     elif check_play_status() is False:
         sp.start_playback(device_id=mac_device_id)
+    update_elements()
+    print("play/pause")
+    
+button.when_pressed = play_pause
 
 display_elements = [("current_play",see_currently_playing())]
+
 def update_elements():
-    for element,target in display_elements:
-        window[element].update(target)
-    print("done")
+    window["current_play"].update(see_currently_playing())
+    get_album_art()
+    window["album_art"].update(album_art)
 
 
 sg.theme("Default1")
@@ -71,8 +76,7 @@ sg.theme_background_color("#1DB954")
 sg.theme_text_color("#FFFFFF")
 sg.theme_text_element_background_color("#1DB954")
 layout = [  [sg.Text(see_currently_playing(), key="current_play"), sg.Image(album_art, key="album_art")],
-            [sg.Text('What do?')],
-            [sg.Button("Play/Pause", key="pp"), sg.Button("Skip", key="next"), sg.Button("Previous", key="previous"), sg.Button("Cancel")]   ]
+            [sg.Button("Cancel")]   ]
 
 window = sg.Window("Spotify Controller", layout, default_element_size=(200,2))
 
@@ -82,8 +86,9 @@ while True:
     if event == sg.WIN_CLOSED or event == "Cancel":
         break
 
-    button.when_pressed = play_pause
-
+    
+    
+    user_in = "cat" 
 
     if user_in == "pp":
         if check_play_status() is True:
@@ -102,5 +107,5 @@ while True:
 
 
     window["current_play"].update(see_currently_playing())
-    get_album_art()
+    get_album_art() 
     window["album_art"].update(album_art)
